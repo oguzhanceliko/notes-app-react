@@ -1,3 +1,4 @@
+import { ToastContainer } from 'react-toastify';
 import './App.css';
 import Footer from './components/footer/footer';
 import Header from './components/header/header';
@@ -13,6 +14,17 @@ function App({ children }: Props) {
       <div className='min-h-screen flex flex-col'>
         <Header />
         <div className='flex-1'>{children}</div>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
         <Footer />
       </div>
     </ThemeProvider>

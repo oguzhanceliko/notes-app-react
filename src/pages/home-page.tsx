@@ -1,7 +1,11 @@
+import NoteList from "@/components/note/note-list"
 
 const HomePage = () => {
   return (
-    <div>home-page</div>
+    <div className="pt-6">
+      <h1 className="text-center text-2xl font-bold mb-4">Notlarım</h1>
+      <NoteList />
+    </div>
   )
 }
 

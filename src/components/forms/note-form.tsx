@@ -4,23 +4,38 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { noteSchema } from "@/schemas/note.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { X } from "lucide-react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
 import type { z } from "zod";
+import FileUpload from "../ui/file-upload";
 type NoteFormData = z.infer<typeof noteSchema>;
 
-const NoteForm = () => {
+type Props = {
+  noteData?: NoteFormData | null;
+  setNoteData?: (data: NoteFormData | null) => void;
+}
+const NoteForm = ({ noteData, setNoteData }: Props) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
     watch,
-    resetField
+    setValue
   } = useForm<NoteFormData>({
     resolver: zodResolver(noteSchema),
   });
+  useEffect(() => {
+    if (noteData) {
+      reset({
+        noteText: noteData.noteText,
+        priority: noteData.priority,
+      });
+    }
+  }, [noteData, reset]);
+
+
   const toBase64 = (file: File): Promise<string> =>
     new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -35,25 +50,47 @@ const NoteForm = () => {
     if (data.image && data.image.length > 0) {
       const file = data.image[0];
       imageBase64 = await toBase64(file);
+    } else if (noteData?.image && (!data.image || data.image.length === 0)) {
+      imageBase64 = noteData.image;
     }
 
+    const id = noteData?.id || Math.random().toString(36).substring(2, 10);
+
     const noteToSave = {
+      id: id,
       noteText: data.noteText,
       priority: data.priority,
       image: imageBase64,
     };
 
+    try {
     const notes = JSON.parse(localStorage.getItem("notes") || "[]");
-    notes.push(noteToSave);
+    const existingIndex = notes.findIndex((n: any) => n.id === id);
+
+    if (existingIndex > -1) {
+      notes[existingIndex] = noteToSave;
+    } else {
+      notes.push(noteToSave);
+    }
     localStorage.setItem("notes", JSON.stringify(notes));
 
-    toast.success("Not eklenmiştir.");
+    toast.success(existingIndex > -1 ? "Not güncellenmiştir." : "Not eklenmiştir.");
     reset();
+    setNoteData?.(noteToSave);
+  } catch (error) {
+    if (
+      error instanceof DOMException &&
+      (error.name === "QuotaExceededError")
+    ) {
+      toast.error("LocalStorage dolu, not kaydedilemedi!");
+    } else {
+      toast.error("Bir hata oluştu, not kaydedilemedi.");
+    }
+  }
   };
 
-  console.log('watch("image")',watch("image"))
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="max-w-md m-auto p-6 bg-white rounded-md shadow-md space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="max-w-md m-auto bg-white p-6 rounded-md shadow-md space-y-6 dark:bg-gray-800 dark:text-white dark:border dark:border-gray-700">
       <div>
         <Label htmlFor="noteText">
           Not Bilgisi <span className="text-red-500">*</span>
@@ -84,15 +121,16 @@ const NoteForm = () => {
         {errors.priority && <p className="text-sm text-red-600 mt-1">{errors.priority.message}</p>}
       </div>
       <div>
-        <Label htmlFor="image">Not Görseli (Opsiyonel)</Label>
-        <div className="flex items-center space-x-2">
-        <Input id="image" type="file" accept="image/*" {...register("image")} />
-        {watch("image")?.length > 0 ? <X
-          className="cursor-pointer text-gray-600 hover:text-gray-900"
-          size={25}
-          onClick={() => resetField("image")}
-        /> : null}
-        </div>
+        <FileUpload
+          value={watch("image")}
+          onChange={(files) => {
+            setValue("image", files);
+          }}
+          existingImage={noteData?.image}
+        />
+        {typeof errors.image?.message === "string" && (
+          <p className="text-sm text-red-600 mt-1">{errors.image?.message}</p>
+        )}
       </div>
       <Button type="submit" className="w-full">
         Kaydet

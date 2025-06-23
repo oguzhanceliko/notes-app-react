@@ -10,10 +10,11 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-
+ const [loading, setLoading] = useState(true);
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsAuthenticated(!!token);
+     setLoading(false);
   }, []);
 
   const login = (token: string) => {
@@ -25,6 +26,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     localStorage.removeItem("token");
     setIsAuthenticated(false);
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout }}>

@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   value?: FileList | null;
@@ -10,6 +11,7 @@ type Props = {
 };
 
 const FileUpload = ({ value, onChange, existingImage }: Props) => {
+  const { t } = useTranslation();
   const [preview, setPreview] = useState<string | null>(null);
   const [cleared, setCleared] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -38,7 +40,7 @@ const FileUpload = ({ value, onChange, existingImage }: Props) => {
     setCleared(true);
     setPreview(null);
     if (inputRef.current) {
-      inputRef.current.value = ""; // input'u sıfırlar
+      inputRef.current.value = "";
     }
     onChange(null);
   };
@@ -50,7 +52,7 @@ const FileUpload = ({ value, onChange, existingImage }: Props) => {
   return (
     <div className="space-y-2">
       <Button type="button" onClick={handleButtonClick} variant="default">
-         {value || preview ? "Dosya değiştir" : "Dosya seç"}
+        {value || preview ? t("fileUpload.changeFile") : t("fileUpload.selectFile")}
       </Button>
 
       <Input
@@ -66,7 +68,7 @@ const FileUpload = ({ value, onChange, existingImage }: Props) => {
 
       {preview && (
         <div className="relative w-32 h-32 border rounded overflow-hidden">
-          <img src={preview} alt="Önizleme" className="w-full h-full object-cover" />
+          <img src={preview} alt={t("fileUpload.previewAlt")} className="w-full h-full object-cover" />
           <button
             type="button"
             onClick={handleClear}

@@ -1,6 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import DeleteModal from "../ui/delete-modal";
 import NoteCard from "./note-card";
@@ -16,6 +17,7 @@ type Note = {
 const PAGE_SIZE = 10;
 
 const NoteList = () => {
+  const { t } = useTranslation();
   const [allNotes, setAllNotes] = useState<Note[]>([]);
   const [filteredNotes, setFilteredNotes] = useState<Note[]>([]);
   const [visibleNotes, setVisibleNotes] = useState<Note[]>([]);
@@ -56,7 +58,6 @@ const NoteList = () => {
     setPage(1);
   }, [allNotes, search, sortOrder]);
 
-
   const loadMore = useCallback(() => {
     if (loading) return;
     setLoading(true);
@@ -80,7 +81,6 @@ const NoteList = () => {
     return () => observer.disconnect();
   }, [visibleNotes, filteredNotes, loadMore]);
 
-
   const handleDeleteClick = (id: string) => {
     setSelectedNoteId(id);
     setShowDeleteModal(true);
@@ -89,7 +89,7 @@ const NoteList = () => {
   const confirmDelete = () => {
     if (!selectedNoteId) return;
 
-    const updatedNotes = allNotes.filter(note => note.id !== selectedNoteId);
+    const updatedNotes = allNotes.filter((note) => note.id !== selectedNoteId);
     localStorage.setItem("notes", JSON.stringify(updatedNotes));
     setAllNotes(updatedNotes);
     setShowDeleteModal(false);
@@ -103,7 +103,7 @@ const NoteList = () => {
     <div className="max-w-2xl mx-auto px-4 py-6 space-y-6">
       <div className="flex flex-col sm:flex-row items-center gap-4">
         <Input
-          placeholder="Not içinde ara..."
+          placeholder={t("noteList.searchPlaceholder")}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="w-full"
@@ -112,23 +112,25 @@ const NoteList = () => {
       </div>
 
       {isNoteDataEmpty && (
-        <p className="text-center text-gray-500">Henüz içerik girilmedi</p>
+        <p className="text-center text-gray-500">
+          {t("noteList.empty")}
+        </p>
       )}
       {isSearchEmpty && (
         <p className="text-center text-gray-500">
-          Aramanızla eşleşen bir sonuç bulunamadı
+          {t("noteList.noSearchResult")}
         </p>
       )}
 
       {!isNoteDataEmpty &&
         !isSearchEmpty &&
         visibleNotes.map((note) => (
-         <NoteCard
-      key={note.id}
-      note={note}
-      onEdit={(id) => navigate(`/not/${id}/guncelle`)}
-      onDelete={handleDeleteClick}
-    />
+          <NoteCard
+            key={note.id}
+            note={note}
+            onEdit={(id) => navigate(`/not/${id}/guncelle`)}
+            onDelete={handleDeleteClick}
+          />
         ))}
 
       {loading && (
@@ -143,7 +145,7 @@ const NoteList = () => {
         open={showDeleteModal}
         onClose={() => setShowDeleteModal(false)}
         onConfirm={confirmDelete}
-        title="Bu notu silmek istediğinize emin misiniz?"
+        title={t("noteList.confirmDelete")}
       />
     </div>
   );

@@ -1,12 +1,21 @@
-import './App.css'
-import { Button } from './components/ui/button'
+import './App.css';
+import Footer from './components/footer/footer';
+import Header from './components/header/header';
+import { ThemeProvider } from './components/theme/theme-provider';
 
-function App() {
+type Props = {
+  children: React.ReactNode;
+}
 
+function App({ children }: Props) {
   return (
-    <>
-       <Button variant={'destructive'}>Click me</Button>
-    </>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <div className='min-h-screen flex flex-col'>
+        <Header />
+        <div className='flex-1'>{children}</div>
+        <Footer />
+      </div>
+    </ThemeProvider>
   )
 }
 

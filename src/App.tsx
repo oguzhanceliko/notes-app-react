@@ -1,12 +1,33 @@
-import './App.css'
-import { Button } from './components/ui/button'
+import { ToastContainer } from 'react-toastify';
+import './App.css';
+import Footer from './components/footer/footer';
+import Header from './components/header/header';
+import { ThemeProvider } from './components/theme/theme-provider';
 
-function App() {
+type Props = {
+  children: React.ReactNode;
+}
 
+function App({ children }: Props) {
   return (
-    <>
-       <Button variant={'destructive'}>Click me</Button>
-    </>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <div className='min-h-screen flex flex-col'>
+        <Header />
+        <div className='flex-1'>{children}</div>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
+        <Footer />
+      </div>
+    </ThemeProvider>
   )
 }
 

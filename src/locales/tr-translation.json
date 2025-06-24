@@ -1,0 +1,66 @@
+{
+  "welcome": "Hoş geldin",
+  "noteAdded": "Not eklendi.",
+  "delete": "Sil",
+  "update": "Güncelle",
+  "fileUpload": "Dosya Seç",
+  "myNotes": "Notlarım",
+  "appTitle": "Not Uygulaması",
+  "addNote": "Not Ekle",
+  "logout": "Çıkış Yap",
+  "footer": {
+    "copyright": "Note App. Tüm hakları saklıdır.",
+    "builtWith": "React + Vite ile geliştirildi"
+  },
+  "login": {
+    "title": "Giriş Yap",
+    "subtitle": "Hesabınıza giriş yapın",
+    "username": "Kullanıcı Adı",
+    "usernamePlaceholder": "Kullanıcı adınızı girin",
+    "password": "Şifre",
+    "passwordPlaceholder": "Şifrenizi girin",
+    "loginButton": "Giriş Yap",
+    "loading": "Giriş yapılıyor...",
+    "invalidCredentials": "Geçersiz kullanıcı adı veya şifre",
+    "demoInfo": {
+      "title": "Demo Bilgileri:",
+      "username": "Kullanıcı Adı",
+      "password": "Şifre"
+    }
+  },
+  "noteCard": {
+    "priority": "Öncelik",
+    "edit": "Düzenle",
+    "delete": "Sil",
+    "imageAlt": "Not Görseli",
+    "fallbackImageAlt": "Yedek Not Görseli"
+  },
+  "noteListDropdown": {
+    "label": "Öncelik",
+    "ascending": "Artan",
+    "descending": "Azalan",
+    "none": "Yok"
+  },
+  "noteList": {
+    "searchPlaceholder": "Not içinde ara...",
+    "empty": "Henüz içerik girilmedi",
+    "noSearchResult": "Aramanızla eşleşen bir sonuç bulunamadı",
+    "confirmDelete": "Bu notu silmek istediğinize emin misiniz?"
+  },
+  "noteForm": {
+    "noteTextLabel": "Not Bilgisi",
+    "noteTextPlaceholder": "Notunuzu girin",
+    "priorityLabel": "Öncelik Derecesi (0-5)",
+    "priorityPlaceholder": "0-5 arasında bir sayı",
+    "saveButton": "Kaydet",
+    "saved": "Not eklenmiştir.",
+    "updated": "Not güncellenmiştir.",
+    "localStorageFull": "LocalStorage dolu, not kaydedilemedi!",
+    "genericError": "Bir hata oluştu, not kaydedilemedi."
+  },
+  "fileUpload": {
+    "selectFile": "Dosya seç",
+    "changeFile": "Dosya değiştir",
+    "previewAlt": "Önizleme"
+  }
+}

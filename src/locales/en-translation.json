@@ -1,0 +1,66 @@
+{
+  "welcome": "Welcome",
+  "noteAdded": "Note has been added.",
+  "delete": "Delete",
+  "update": "Update",
+  "fileUpload": "Select File",
+  "myNotes": "My Notes",
+  "appTitle": "Note App",
+  "addNote": "Add Note",
+  "logout": "Log Out",
+  "footer": {
+    "copyright": "Note App. All rights reserved.",
+    "builtWith": "Built with React + Vite"
+  },
+  "login": {
+    "title": "Login",
+    "subtitle": "Sign in to your account",
+    "username": "Username",
+    "usernamePlaceholder": "Enter your username",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "loginButton": "Log In",
+    "loading": "Logging in...",
+    "invalidCredentials": "Invalid username or password",
+    "demoInfo": {
+      "title": "Demo Credentials:",
+      "username": "Username",
+      "password": "Password"
+    }
+  },
+  "noteCard": {
+    "priority": "Priority",
+    "edit": "Edit",
+    "delete": "Delete",
+    "imageAlt": "Note Image",
+    "fallbackImageAlt": "Fallback Note Image"
+  },
+  "noteListDropdown": {
+    "label": "Priority",
+    "ascending": "Ascending",
+    "descending": "Descending",
+    "none": "None"
+  },
+  "noteList": {
+    "searchPlaceholder": "Search within notes...",
+    "empty": "No content has been added yet",
+    "noSearchResult": "No results matched your search",
+    "confirmDelete": "Are you sure you want to delete this note?"
+  },
+  "noteForm": {
+    "noteTextLabel": "Note Text",
+    "noteTextPlaceholder": "Enter your note",
+    "priorityLabel": "Priority (0-5)",
+    "priorityPlaceholder": "A number between 0 and 5",
+    "saveButton": "Save",
+    "saved": "Note has been added.",
+    "updated": "Note has been updated.",
+    "localStorageFull": "LocalStorage is full, note could not be saved!",
+    "genericError": "An error occurred, note could not be saved."
+  },
+  "fileUpload": {
+    "selectFile": "Select File",
+    "changeFile": "Change File",
+    "previewAlt": "Preview"
+  }
+}

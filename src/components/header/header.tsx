@@ -12,7 +12,7 @@ const Header = () => {
   const { t } = useTranslation();
 
   return (
-    <header className="shadow-lg dark:border-b dark:border-gray-700">
+    <header className="shadow-lg dark:border-b dark:border-gray-700 bg-gray-100 dark:bg-gray-800">
       <div className="container mx-auto px-4 py-3">
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center space-x-2">

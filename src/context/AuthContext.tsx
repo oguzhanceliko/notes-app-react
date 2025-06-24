@@ -8,6 +8,7 @@ type AuthContextType = {
   login: () => void;
   logout: () => void;
   isAuthenticated: boolean;
+  roles: string[];
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -18,6 +19,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<any>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+const [roles, setRoles] = useState<string[]>([]);
 
   const login = () => {
     keycloak.login();
@@ -31,16 +33,22 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const updateAuthState = (authenticated: boolean) => {
-    setIsAuthenticated(authenticated);
+  setIsAuthenticated(authenticated);
 
-    if (authenticated) {
-      setToken(keycloak.token ?? null);
-      setUser(keycloak.tokenParsed ?? null);
-    } else {
-      setToken(null);
-      setUser(null);
-    }
-  };
+  if (authenticated) {
+    const tokenParsed = keycloak.tokenParsed ?? {};
+    const userRoles = tokenParsed?.realm_access?.roles ?? [];
+
+    setToken(keycloak.token ?? null);
+    setUser(tokenParsed);
+    setRoles(userRoles);
+  } else {
+    setToken(null);
+    setUser(null);
+    setRoles([]);
+  }
+};
+
 
   useEffect(() => {
     if (isKeycloakInitialized) {
@@ -58,8 +66,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       })
       .then((authenticated) => {
         updateAuthState(authenticated);
-
-        // Event listeners'ı sadece ilk init'te kuruyoruz
         keycloak.onAuthSuccess = () => updateAuthState(true);
         keycloak.onAuthLogout = () => updateAuthState(false);
         keycloak.onTokenExpired = () => {
@@ -80,7 +86,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       token,
       user,
       login,
-      logout
+      logout,
+      roles
     }}>
       {children}
     </AuthContext.Provider>

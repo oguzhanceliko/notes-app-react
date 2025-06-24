@@ -8,9 +8,10 @@ type Props = {
   value?: FileList | null;
   onChange: (files: FileList | null) => void;
   existingImage?: string;
+  onClear?: () => void;
 };
 
-const FileUpload = ({ value, onChange, existingImage }: Props) => {
+const FileUpload = ({ value, onChange,onClear, existingImage }: Props) => {
   const { t } = useTranslation();
   const [preview, setPreview] = useState<string | null>(null);
   const [cleared, setCleared] = useState(false);
@@ -43,6 +44,7 @@ const FileUpload = ({ value, onChange, existingImage }: Props) => {
       inputRef.current.value = "";
     }
     onChange(null);
+     onClear?.();
   };
 
   const handleButtonClick = () => {

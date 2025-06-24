@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { toBase64 } from "@/lib/helper";
 import { noteSchema } from "@/schemas/note.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
@@ -41,13 +42,12 @@ const NoteForm = ({ noteData, setNoteData }: Props) => {
     }
   }, [noteData, reset]);
 
-  const toBase64 = (file: File): Promise<string> =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = (error) => reject(error);
-    });
+  const clearImage = () => {
+    setValue("image", null);
+    if (setNoteData && noteData) {
+      setNoteData({ ...noteData, image: "" } as NoteFormData);
+    }
+  };
 
   const onSubmit = async (data: NoteFormData) => {
     let imageBase64 = "";
@@ -150,6 +150,7 @@ const NoteForm = ({ noteData, setNoteData }: Props) => {
             setValue("image", files);
           }}
           existingImage={noteData?.image}
+          onClear={clearImage}
         />
         {typeof errors.image?.message === "string" && (
           <p className="text-sm text-red-600 mt-1">{errors.image?.message}</p>

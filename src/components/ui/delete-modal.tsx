@@ -1,5 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { useTranslation } from "react-i18next";
 
 type DeleteModalProps = {
   open: boolean;
@@ -8,7 +15,14 @@ type DeleteModalProps = {
   onConfirm: () => void;
 };
 
-const DeleteModal = ({ open, title = "Bu öğeyi silmek istediğinize emin misiniz?", onClose, onConfirm }: DeleteModalProps) => {
+const DeleteModal = ({
+  open,
+  title = "Bu öğeyi silmek istediğinize emin misiniz?",
+  onClose,
+  onConfirm,
+}: DeleteModalProps) => {
+  const { t } = useTranslation();
+
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md">
@@ -17,10 +31,10 @@ const DeleteModal = ({ open, title = "Bu öğeyi silmek istediğinize emin misin
         </DialogHeader>
         <DialogFooter className="flex justify-end gap-2">
           <Button variant="outline" onClick={onClose}>
-            Hayır
+            {t("no")}
           </Button>
           <Button variant="destructive" onClick={onConfirm}>
-            Evet
+            {t("yes")}
           </Button>
         </DialogFooter>
       </DialogContent>

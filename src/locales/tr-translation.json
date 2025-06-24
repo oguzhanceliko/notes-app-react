@@ -3,14 +3,12 @@
   "noteAdded": "Not eklendi.",
   "delete": "Sil",
   "update": "Güncelle",
-  "fileUpload": "Dosya Seç",
   "myNotes": "Notlarım",
   "appTitle": "Not Uygulaması",
   "addNote": "Not Ekle",
   "logout": "Çıkış Yap",
   "footer": {
-    "copyright": "Note App. Tüm hakları saklıdır.",
-    "builtWith": "React + Vite ile geliştirildi"
+    "copyright": "Not Uygulaması. Tüm hakları saklıdır."
   },
   "login": {
     "title": "Giriş Yap",
@@ -27,6 +25,11 @@
       "username": "Kullanıcı Adı",
       "password": "Şifre"
     }
+  },
+  "login2": {
+    "title": "Keycloak Giriş",
+    "description": "Giriş yapmak için aşağıya tıkla",
+    "button": "Giriş Yap"
   },
   "noteCard": {
     "priority": "Öncelik",
@@ -62,5 +65,7 @@
     "selectFile": "Dosya seç",
     "changeFile": "Dosya değiştir",
     "previewAlt": "Önizleme"
-  }
+  },
+  "yes": "Evet",
+  "no": "Hayır"
 }

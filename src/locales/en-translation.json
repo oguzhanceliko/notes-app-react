@@ -3,14 +3,12 @@
   "noteAdded": "Note has been added.",
   "delete": "Delete",
   "update": "Update",
-  "fileUpload": "Select File",
   "myNotes": "My Notes",
   "appTitle": "Note App",
   "addNote": "Add Note",
   "logout": "Log Out",
   "footer": {
-    "copyright": "Note App. All rights reserved.",
-    "builtWith": "Built with React + Vite"
+    "copyright": "Note App. All rights reserved."
   },
   "login": {
     "title": "Login",
@@ -27,6 +25,11 @@
       "username": "Username",
       "password": "Password"
     }
+  },
+  "login2": {
+    "title": "Keycloak Login",
+    "description": "Click below to sign in",
+    "button": "Sign In"
   },
   "noteCard": {
     "priority": "Priority",
@@ -62,5 +65,7 @@
     "selectFile": "Select File",
     "changeFile": "Change File",
     "previewAlt": "Preview"
-  }
+  },
+  "yes": "Yes",
+  "no": "No"
 }
